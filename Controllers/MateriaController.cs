@@ -40,9 +40,9 @@ namespace CLASE_ORM.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Materia materia)
+        public async Task<IActionResult> Update(int id, ActualizarMateriaDto dto)
         {
-            var updated = await _service.UpdateAsync(id, materia);
+            var updated = await _service.UpdateAsync(id, dto);
             if (!updated) return NotFound();
             return NoContent();
         }

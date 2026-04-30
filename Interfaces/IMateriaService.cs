@@ -8,7 +8,7 @@ namespace CLASE_ORM.Interfaces
         Task<List<MateriaDto>> GetAllAsync();
         Task<Materia?> GetByIdAsync(int id);
         Task<Materia> CreateAsync(CrearMateriaDto dto);
-        Task<bool> UpdateAsync(int id, Materia materia);
+        Task<bool> UpdateAsync(int id, ActualizarMateriaDto dto);
         Task<bool> DeleteAsync(int id);
     }
 }

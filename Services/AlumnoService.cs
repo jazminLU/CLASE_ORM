@@ -72,6 +72,9 @@ namespace CLASE_ORM.Services
             var existing = await _context.Alumnos.FindAsync(id);
             if (existing == null) return false;
 
+            var materiaExiste = await _context.Materias.AnyAsync(m => m.Id == dto.MateriaId);
+            if (!materiaExiste) return false;
+
             existing.Nombre = dto.Nombre;
             existing.MateriaId = dto.MateriaId;
 

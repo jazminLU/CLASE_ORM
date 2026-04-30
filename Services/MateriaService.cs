@@ -46,12 +46,12 @@ namespace CLASE_ORM.Services
             return materia;
         }
 
-        public async Task<bool> UpdateAsync(int id, Materia materia)
+        public async Task<bool> UpdateAsync(int id, ActualizarMateriaDto dto)
         {
             var existing = await _context.Materias.FindAsync(id);
             if (existing == null) return false;
 
-            existing.Nombre = materia.Nombre;
+            existing.Nombre = dto.Nombre;
 
             await _context.SaveChangesAsync();
             return true;
