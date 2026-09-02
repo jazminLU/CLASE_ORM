@@ -1,6 +1,7 @@
 ﻿using CLASE_ORM.Entities;
 using CLASE_ORM.Entities.DTO.Alumno;
 using CLASE_ORM.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CLASE_ORM.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AlumnoController : ControllerBase
     {
         private readonly IAlumnoService _service;
@@ -38,6 +40,7 @@ namespace CLASE_ORM.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CrearAlumnoDto dto)
         {
             var created = await _service.CreateAsync(dto);
@@ -45,6 +48,7 @@ namespace CLASE_ORM.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, ActualizarAlumnoDto dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
@@ -55,6 +59,7 @@ namespace CLASE_ORM.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _service.DeleteAsync(id);

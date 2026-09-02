@@ -18,8 +18,20 @@ namespace CLASE_ORM.Context
         public DbSet<Alumno> Alumnos { get; set; }
         public DbSet<Materia> Materias { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Usuario>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Rol)
+                .HasDefaultValue("Usuario");
+        }
 
     }
 }
