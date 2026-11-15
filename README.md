@@ -10,6 +10,15 @@ con la modalidad **Code First** sobre SQL Server.
 El frontend (Angular 20 + Angular Material) consume esta API y vive en
 [gestion-academica-frontend](https://github.com/jazminLU/gestion-academica-frontend).
 
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-12-239120?style=flat&logo=csharp&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-5C2D91?style=flat&logo=dotnet&logoColor=white)
+![Entity Framework Core](https://img.shields.io/badge/EF%20Core-8.0.6-512BD4?style=flat&logo=nuget&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-2022-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Bearer-000000?style=flat&logo=jsonwebtokens&logoColor=white)
+![BCrypt](https://img.shields.io/badge/BCrypt.Net--Next-4.2.0-6DB33F?style=flat&logo=letsencrypt&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-6.6.2-85EA2D?style=flat&logo=swagger&logoColor=black)
+
 ---
 
 ## Tecnologías
