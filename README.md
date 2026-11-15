@@ -7,8 +7,8 @@ Architecture**, autenticación con **JWT** y **BCrypt**, autorización por
 excepciones** y **paginación/filtrado**, usando **Entity Framework Core**
 con la modalidad **Code First** sobre SQL Server.
 
-El frontend (Angular 20 + Angular Material) consume esta API y vive en un
-repositorio aparte.
+El frontend (Angular 20 + Angular Material) consume esta API y vive en
+[gestion-academica-frontend](https://github.com/jazminLU/gestion-academica-frontend).
 
 ---
 
@@ -164,7 +164,8 @@ Todas las rutas (salvo `Auth`) requieren el header
 
 ## Frontend
 
-El cliente Angular que consume esta API está en un repositorio aparte
+El cliente Angular que consume esta API está en
+**[gestion-academica-frontend](https://github.com/jazminLU/gestion-academica-frontend)**
 (Angular 20 + Angular Material: tablas, diálogos, formularios, paginador,
 etc.), con login/registro, guard de rutas, interceptor de JWT y UI que se
 adapta según el rol del usuario logueado.
