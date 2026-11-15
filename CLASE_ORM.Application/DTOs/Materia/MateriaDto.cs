@@ -1,9 +1,8 @@
-﻿namespace CLASE_ORM.Entities
+namespace CLASE_ORM.Application.DTOs.Materia
 {
-    public class Profesor
+    public class MateriaDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-
     }
 }

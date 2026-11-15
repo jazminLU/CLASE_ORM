@@ -1,4 +1,4 @@
-namespace CLASE_ORM.Entities
+namespace CLASE_ORM.Domain.Entities
 {
     public class Usuario
     {

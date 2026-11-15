@@ -1,4 +1,4 @@
-namespace CLASE_ORM.Entities.DTO.Usuario
+namespace CLASE_ORM.Application.DTOs.Usuario
 {
     public class RegistrarUsuarioDto
     {

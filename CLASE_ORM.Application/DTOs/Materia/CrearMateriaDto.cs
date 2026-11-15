@@ -1,4 +1,4 @@
-﻿namespace CLASE_ORM.Entities.DTO.Materia
+namespace CLASE_ORM.Application.DTOs.Materia
 {
     public class CrearMateriaDto
     {

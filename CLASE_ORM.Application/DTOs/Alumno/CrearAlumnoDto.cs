@@ -1,4 +1,4 @@
-﻿namespace CLASE_ORM.Entities.DTO.Alumno
+namespace CLASE_ORM.Application.DTOs.Alumno
 {
     public class CrearAlumnoDto
     {

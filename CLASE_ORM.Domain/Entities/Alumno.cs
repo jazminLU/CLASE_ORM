@@ -1,4 +1,4 @@
-﻿namespace CLASE_ORM.Entities
+namespace CLASE_ORM.Domain.Entities
 {
     public class Alumno
     {
@@ -7,9 +7,9 @@
 
 
         //FK PARA LA CONVENCION
-        public int MateriaId { get; set; } 
+        public int MateriaId { get; set; }
 
-        //PROPIEDAD DE NAVEGACION 
+        //PROPIEDAD DE NAVEGACION
         public Materia Materia { get; set; }
 
     }
