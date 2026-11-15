@@ -7,5 +7,8 @@ namespace CLASE_ORM.Domain.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string Rol { get; set; } = "Usuario";
+
+        public int? AlumnoId { get; set; }
+        public Alumno? Alumno { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace CLASE_ORM.Domain.Entities
         public string Nombre { get; set; }
 
         //AGREGAMOS LA NAVEGACIÓN INVERSA
-        public List<Alumno> Alumnos { get; set; }
+        public List<Inscripcion> Inscripciones { get; set; }
     }
 }

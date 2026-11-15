@@ -20,7 +20,7 @@ namespace CLASE_ORM.Infrastructure.Services
 
         public async Task<PagedResult<AlumnoDto>> GetAllAsync(int pageNumber, int pageSize, string? nombre)
         {
-            var query = _context.Alumnos.Include(a => a.Materia).AsQueryable();
+            var query = _context.Alumnos.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(nombre))
                 query = query.Where(a => a.Nombre.Contains(nombre));
@@ -35,7 +35,10 @@ namespace CLASE_ORM.Infrastructure.Services
                 {
                     Id = a.Id,
                     Nombre = a.Nombre,
-                    Materia = a.Materia.Nombre
+                    Materias = a.Inscripciones
+                        .Where(i => i.Estado == "Aprobada")
+                        .Select(i => i.Materia.Nombre)
+                        .ToList()
                 })
                 .ToListAsync();
 
@@ -52,14 +55,16 @@ namespace CLASE_ORM.Infrastructure.Services
         {
 
             var alumno = await _context.Alumnos
-                .Include(a => a.Materia)
                 .Where(a => a.Id == id)
                 .Select(a => new AlumnoDto
                 {
 
                     Id = a.Id,
                     Nombre = a.Nombre,
-                    Materia = a.Materia.Nombre
+                    Materias = a.Inscripciones
+                        .Where(i => i.Estado == "Aprobada")
+                        .Select(i => i.Materia.Nombre)
+                        .ToList()
 
                 })
                 .FirstOrDefaultAsync();
@@ -75,8 +80,7 @@ namespace CLASE_ORM.Infrastructure.Services
 
             var alumno = new Alumno
             {
-                Nombre = dto.Nombre,
-                MateriaId = dto.MateriaId
+                Nombre = dto.Nombre
             };
 
             _context.Alumnos.Add(alumno);
@@ -92,11 +96,7 @@ namespace CLASE_ORM.Infrastructure.Services
             var existing = await _context.Alumnos.FindAsync(id)
                 ?? throw new NotFoundException($"No se encontró el alumno con id {id}.");
 
-            var materiaExiste = await _context.Materias.AnyAsync(m => m.Id == dto.MateriaId);
-            if (!materiaExiste) throw new NotFoundException($"No se encontró la materia con id {dto.MateriaId}.");
-
             existing.Nombre = dto.Nombre;
-            existing.MateriaId = dto.MateriaId;
 
             await _context.SaveChangesAsync();
 

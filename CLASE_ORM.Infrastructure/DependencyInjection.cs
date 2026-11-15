@@ -20,6 +20,7 @@ namespace CLASE_ORM.Infrastructure
             services.AddScoped<IAlumnoService, AlumnoService>();
             services.AddScoped<IMateriaService, MateriaService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IInscripcionService, InscripcionService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

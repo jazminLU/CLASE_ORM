@@ -39,6 +39,15 @@ namespace CLASE_ORM.Infrastructure.Services
                 Rol = rol
             };
 
+            if (rol == "Usuario")
+            {
+                var alumno = new Alumno { Nombre = dto.Nombre };
+                _context.Alumnos.Add(alumno);
+                await _context.SaveChangesAsync();
+
+                usuario.AlumnoId = alumno.Id;
+            }
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 

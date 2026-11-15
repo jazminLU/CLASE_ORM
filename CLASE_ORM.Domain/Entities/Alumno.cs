@@ -5,12 +5,8 @@ namespace CLASE_ORM.Domain.Entities
         public int Id { get; set; }
         public string Nombre { get; set; }
 
-
-        //FK PARA LA CONVENCION
-        public int MateriaId { get; set; }
-
-        //PROPIEDAD DE NAVEGACION
-        public Materia Materia { get; set; }
+        //INSCRIPCIONES DEL ALUMNO A MATERIAS (muchos a muchos via Inscripcion)
+        public List<Inscripcion> Inscripciones { get; set; }
 
     }
 }
