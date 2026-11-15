@@ -1,10 +1,5 @@
-using CLASE_ORM.Context;
-using CLASE_ORM.Interfaces;
-using CLASE_ORM.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using CLASE_ORM.Infrastructure;
+using CLASE_ORM.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,29 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>
-    (options =>options.UseSqlServer( builder.Configuration.GetConnectionString("Con"))
-);
-
-builder.Services.AddScoped<IAlumnoService, AlumnoService>();
-builder.Services.AddScoped<IMateriaService, MateriaService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
-        };
-    });
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthorization();
 
@@ -60,8 +33,11 @@ if (app.Environment.IsDevelopment())
 //Para empezar a usar el ORM EntityFrameworkCore.SqlServer, tienen que instalarlo desde el administrador de paquetes Nuget
 // esta en Herramientas => Administrador de paquetes Nuget => Administrar paquetes Nuget.
 //Son dos cosas es EntityFrameworkCore.SqlServer y EntityFrameworkCore.Tools.
-//tiene que coincidir con la versi�n de .NET que eligieron, no instalen la 10 o superior si est�n usando en su propia soluci�n la version 8.
+//tiene que coincidir con la versión de .NET que eligieron, no instalen la 10 o superior si están usando en su propia solución la version 8.
 
+
+app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseCors("AllowAngular");
 

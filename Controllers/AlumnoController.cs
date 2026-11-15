@@ -1,8 +1,6 @@
-﻿using CLASE_ORM.Entities;
-using CLASE_ORM.Entities.DTO.Alumno;
-using CLASE_ORM.Interfaces;
+using CLASE_ORM.Application.DTOs.Alumno;
+using CLASE_ORM.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLASE_ORM.Controllers
@@ -20,23 +18,17 @@ namespace CLASE_ORM.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string? nombre = null)
         {
-
-            var alumnos = await _service.GetAllAsync();
-            return Ok(alumnos);
-
+            var result = await _service.GetAllAsync(pageNumber, pageSize, nombre);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-
             var alumno = await _service.GetByIdAsync(id);
-            if (alumno == null) return NotFound();
-
             return Ok(alumno);
-
         }
 
         [HttpPost]
@@ -51,10 +43,7 @@ namespace CLASE_ORM.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, ActualizarAlumnoDto dto)
         {
-            var updated = await _service.UpdateAsync(id, dto);
-
-            if (!updated) return NotFound();
-
+            await _service.UpdateAsync(id, dto);
             return NoContent();
         }
 
@@ -62,8 +51,7 @@ namespace CLASE_ORM.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _service.DeleteAsync(id);
-            if (!deleted) return NotFound();
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }

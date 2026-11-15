@@ -1,5 +1,5 @@
-using CLASE_ORM.Entities.DTO.Usuario;
-using CLASE_ORM.Interfaces;
+using CLASE_ORM.Application.DTOs.Usuario;
+using CLASE_ORM.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLASE_ORM.Controllers
@@ -19,8 +19,6 @@ namespace CLASE_ORM.Controllers
         public async Task<IActionResult> Register(RegistrarUsuarioDto dto)
         {
             var usuario = await _service.RegistrarAsync(dto);
-            if (usuario is null) return Conflict(new { message = "El email ya esta registrado." });
-
             return Ok(usuario);
         }
 
@@ -28,9 +26,7 @@ namespace CLASE_ORM.Controllers
         public async Task<IActionResult> Login(LoginUsuarioDto dto)
         {
             var resultado = await _service.LoginAsync(dto);
-            if (resultado is null) return Unauthorized(new { message = "Credenciales invalidas." });
-
-            return Ok(new { token = resultado.Value.Token, usuario = resultado.Value.Usuario });
+            return Ok(new { token = resultado.Token, usuario = resultado.Usuario });
         }
     }
 }
