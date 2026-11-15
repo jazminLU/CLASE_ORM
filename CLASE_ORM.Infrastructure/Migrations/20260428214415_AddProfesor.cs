@@ -2,41 +2,33 @@
 
 #nullable disable
 
-namespace CLASE_ORM.Migrations
+namespace CLASE_ORM.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUsuario : Migration
+    public partial class AddProfesor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Profesores",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.PrimaryKey("PK_Profesores", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Email",
-                table: "Usuarios",
-                column: "Email",
-                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Profesores");
         }
     }
 }

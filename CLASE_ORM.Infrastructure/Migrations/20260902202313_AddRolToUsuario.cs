@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CLASE_ORM.Migrations
+namespace CLASE_ORM.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class AddRolToUsuario : Migration

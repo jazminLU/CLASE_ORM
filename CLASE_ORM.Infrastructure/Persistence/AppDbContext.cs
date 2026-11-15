@@ -1,18 +1,18 @@
-﻿using CLASE_ORM.Entities;
+using CLASE_ORM.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CLASE_ORM.Context
+namespace CLASE_ORM.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
-        
-        // AppDbContext - AplicationDbContext 
+
+        // AppDbContext - AplicationDbContext
 
         public AppDbContext(DbContextOptions<AppDbContext> options): base (options)
         {
-            
+
         }
-        
+
         // add-migration, update-database, remove-migration, drop-database.
 
         public DbSet<Alumno> Alumnos { get; set; }

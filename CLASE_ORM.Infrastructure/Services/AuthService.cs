@@ -1,14 +1,16 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CLASE_ORM.Context;
-using CLASE_ORM.Entities;
-using CLASE_ORM.Entities.DTO.Usuario;
-using CLASE_ORM.Interfaces;
+using CLASE_ORM.Application.DTOs.Usuario;
+using CLASE_ORM.Application.Exceptions;
+using CLASE_ORM.Application.Interfaces;
+using CLASE_ORM.Domain.Entities;
+using CLASE_ORM.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CLASE_ORM.Services
+namespace CLASE_ORM.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {
@@ -21,10 +23,10 @@ namespace CLASE_ORM.Services
             _config = config;
         }
 
-        public async Task<UsuarioDto?> RegistrarAsync(RegistrarUsuarioDto dto)
+        public async Task<UsuarioDto> RegistrarAsync(RegistrarUsuarioDto dto)
         {
             var existe = await _context.Usuarios.AnyAsync(u => u.Email == dto.Email);
-            if (existe) return null;
+            if (existe) throw new ConflictException("El email ya esta registrado.");
 
             var esPrimerUsuario = !await _context.Usuarios.AnyAsync();
             var rol = esPrimerUsuario ? "Admin" : "Usuario";
@@ -49,13 +51,13 @@ namespace CLASE_ORM.Services
             };
         }
 
-        public async Task<(string Token, UsuarioDto Usuario)?> LoginAsync(LoginUsuarioDto dto)
+        public async Task<(string Token, UsuarioDto Usuario)> LoginAsync(LoginUsuarioDto dto)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == dto.Email);
-            if (usuario is null) return null;
+            if (usuario is null) throw new UnauthorizedAccessException("Credenciales invalidas.");
 
             var valido = BCrypt.Net.BCrypt.Verify(dto.Password, usuario.PasswordHash);
-            if (!valido) return null;
+            if (!valido) throw new UnauthorizedAccessException("Credenciales invalidas.");
 
             var token = GenerarToken(usuario);
 
